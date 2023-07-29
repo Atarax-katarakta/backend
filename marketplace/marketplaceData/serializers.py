@@ -32,7 +32,7 @@ class UniversitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = University
-        fields = ('link', 'title', 'grade', 'image', 'city', 'speciality')
+        fields = ('pk', 'link', 'title', 'grade', 'image', 'city', 'speciality')
 
 
 class BankServiceSerializer(serializers.ModelSerializer):
@@ -48,7 +48,7 @@ class UniversitySoloSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = University
-        fields = ('link', 'title', 'grade', 'city', 'image')
+        fields = ('pk', 'link', 'title', 'grade', 'city', 'image')
 
 
 class UniversitySpecialitySerializer(serializers.ModelSerializer):
