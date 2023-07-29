@@ -9,18 +9,30 @@ class BankSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UniversitySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = University
-        fields = '__all__'
-
-
 class SpecialitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Speciality
         fields = '__all__'
+
+
+class CitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = City
+        fields = ('title',)
+
+
+class UniversitySerializer(serializers.ModelSerializer):
+    speciality = SpecialitySerializer(
+        many=True,
+        read_only=True
+    )
+    city = serializers.StringRelatedField()
+
+    class Meta:
+        model = University
+        fields = ('link', 'title', 'grade', 'image', 'city', 'speciality')
 
 
 class BankServiceSerializer(serializers.ModelSerializer):
@@ -31,8 +43,16 @@ class BankServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UniversitySoloSerializer(serializers.ModelSerializer):
+    city = serializers.StringRelatedField()
+
+    class Meta:
+        model = University
+        fields = ('link', 'title', 'grade', 'city', 'image')
+
+
 class UniversitySpecialitySerializer(serializers.ModelSerializer):
-    university = UniversitySerializer()
+    university = UniversitySoloSerializer()
     speciality = SpecialitySerializer()
 
     class Meta:

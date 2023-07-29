@@ -6,3 +6,7 @@ from .models import *
 
 admin.site.register(Bank)
 admin.site.register(BankService)
+admin.site.register(City)
+admin.site.register(University)
+admin.site.register(UniversitySpeciality)
+admin.site.register(Speciality)

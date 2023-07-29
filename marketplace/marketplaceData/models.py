@@ -3,6 +3,13 @@ from django.db import models
 # Create your models here.
 
 
+class City(models.Model):
+    title = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.title
+
+
 class Speciality(models.Model):
     title = models.CharField(max_length=128)
     code = models.CharField(max_length=8, primary_key=True, unique=True)
@@ -14,6 +21,8 @@ class University(models.Model):
     title = models.CharField(max_length=128)
     link = models.URLField()
     grade = models.CharField(max_length=20)
+    image = models.URLField(null=True, blank=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     speciality = models.ManyToManyField(Speciality, through='UniversitySpeciality')
 
 

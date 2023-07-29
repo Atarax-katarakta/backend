@@ -7,11 +7,18 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response
 from rest_framework.viewsets import ModelViewSet
 
-from .repository import BankRepository, SpecialityRepository, UniversitySpecialityRepository, BankServiceRepository, UniversityRepository
-from .serializers import BankSerializer, BankServiceSerializer, UniversitySerializer, SpecialitySerializer, UniversitySpecialitySerializer
+from .repository import BankRepository, SpecialityRepository, UniversitySpecialityRepository, BankServiceRepository, UniversityRepository, CityRepository
+from .serializers import BankSerializer, BankServiceSerializer, UniversitySerializer, SpecialitySerializer, UniversitySpecialitySerializer, CitySerializer, UniversitySoloSerializer
 from .tasks import get_university_and_specialitites_data_from_json
 
 # Create your views here.
+
+
+class CityViewSet(ModelViewSet):
+    pagination_class = LimitOffsetPagination
+    permission_classes = (AllowAny,)
+    serializer_class = CitySerializer
+    queryset = CityRepository.get_queryset()
 
 
 class BankViewSet(ModelViewSet):
@@ -67,6 +74,46 @@ class UniversitySpecialityFilteredListAPIView(ListAPIView):
     )
     def get_queryset(self):
         return UniversitySpecialityRepository.get_filtered_by_speciality(self.request.query_params.get('speciality_code'))
+
+
+class UniversitySpecialityFilteredAPIView(ListAPIView):
+    pagination_class = LimitOffsetPagination
+    permission_classes = (AllowAny,)
+    serializer_class = UniversitySpecialitySerializer
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'university_id',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                description='id универа',
+                required=True,
+            ),
+        ]
+    )
+    def get_queryset(self):
+        return UniversitySpecialityRepository.get_filtered_by_university(self.request.query_params.get('university_id'))
+
+
+class GetUniversityByCityListAPIView(ListAPIView):
+    pagination_class = LimitOffsetPagination
+    permission_classes = (AllowAny,)
+    serializer_class = UniversitySoloSerializer
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'city_name',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                description='название города',
+                required=True,
+            ),
+        ]
+    )
+    def get_queryset(self):
+        return UniversityRepository.get_university_by_city(self.request.query_params.get('city_name'))
 
 
 class AddUniversitySpecialityAPIView(APIView):

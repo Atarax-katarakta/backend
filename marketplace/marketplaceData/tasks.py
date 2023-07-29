@@ -19,7 +19,9 @@ def get_university_and_specialitites_data_from_json(data):
         university_object = UniversityRepository.add_university(
             title=university['title'],
             link=university['site'],
-            grade=university['grade']
+            grade=university['grade'],
+            city=university['city'],
+            image=university['image']
         )
         try:
             for speciality in university.get("specialities"):
@@ -40,4 +42,3 @@ def get_university_and_specialitites_data_from_json(data):
                 )
         except Exception:
             pass
-
