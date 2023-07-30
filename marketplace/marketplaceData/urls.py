@@ -14,6 +14,8 @@ urlpatterns = [
     path('filteredspecialities/', UniversitySpecialityFilteredListAPIView.as_view()),
     path('filteredbyuniversities/', UniversitySpecialityFilteredAPIView.as_view()),
     path('universitiesbycity/', GetUniversityByCityListAPIView.as_view()),
-    path('upload/', AddUniversitySpecialityAPIView.as_view())
+    path('upload/', AddUniversitySpecialityAPIView.as_view()),
+    path('bankapprove/', PeopleBankingServiceAPIView.as_view()),
+    path('universityapprove/', UniversityApproveAPIView.as_view())
 ]
 urlpatterns += router.urls
