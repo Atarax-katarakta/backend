@@ -1,4 +1,4 @@
-from .models import Bank, BankService, University, Speciality, UniversitySpeciality, City
+from .models import *
 
 
 class CityRepository:
@@ -47,6 +47,10 @@ class BankServiceRepository:
     def get_queryset():
         return BankService.objects.all()
 
+    @staticmethod
+    def get_by_id(pk: int):
+        return BankService.objects.get(pk=pk)
+
 
 class SpecialityRepository:
 
@@ -72,6 +76,10 @@ class UniversitySpecialityRepository:
         return UniversitySpeciality.objects.all()
 
     @staticmethod
+    def get_by_id(pk: int):
+        return UniversitySpeciality.objects.get(pk=pk)
+
+    @staticmethod
     def get_filtered_by_speciality(speciality_id: str):
         return UniversitySpeciality.objects.filter(speciality__code=speciality_id)
 
@@ -90,4 +98,34 @@ class UniversitySpecialityRepository:
             budget_passing_score=budget_passing_score,
             contract_passing_score=contract_passing_score,
             price=price
+        )
+
+
+class PeopleBankServiceRepository:
+
+    @staticmethod
+    def get_queryset(user_id):
+        return PeopleBankService.objects.filter(user_id=user_id)
+
+    @staticmethod
+    def add_service(user_id: int, service_id: int, approved: bool = False):
+        return PeopleBankService.objects.create(
+            user_id=user_id,
+            service_id=service_id,
+            approved=approved
+        )
+
+
+class UniversityApproveRepository:
+
+    @staticmethod
+    def get_queryset():
+        return UniversityApprove.objects.all()
+
+    @staticmethod
+    def add_ticket(user_id: int, university: University, approved: bool = False):
+        return PeopleBankService.objects.create(
+            user_id=user_id,
+            university=university,
+            approved=approved
         )

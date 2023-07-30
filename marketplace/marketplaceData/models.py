@@ -51,3 +51,15 @@ class BankService(models.Model):
     default_price = models.FloatField(null=True, blank=True)
     # link_on_service_api = models.URLField()
     # settings = models.JSONField()
+
+
+class PeopleBankService(models.Model):
+    user_id = models.BigIntegerField()
+    service = models.ForeignKey(BankService, on_delete=models.PROTECT)
+    approved = models.BooleanField(default=False, blank=True)
+
+
+class UniversityApprove(models.Model):
+    user_id = models.BigIntegerField()
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    approved = models.BooleanField(default=False, blank=True)

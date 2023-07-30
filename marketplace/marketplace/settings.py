@@ -142,6 +142,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+UNIVERSITY_EXAMPLE_API = 'https://atu.k-lab.su/'
+BANK_EXAMPLE_API = 'https://atb.k-lab.su/'
+
 # celery and redis
 REDIS_HOST = 'redis'
 REDIS_PORT = '6379'
