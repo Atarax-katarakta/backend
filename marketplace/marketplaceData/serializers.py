@@ -58,3 +58,19 @@ class UniversitySpecialitySerializer(serializers.ModelSerializer):
     class Meta:
         model = UniversitySpeciality
         fields = '__all__'
+
+
+class PeopleBankServiceSerializer(serializers.ModelSerializer):
+    service = serializers.HyperlinkedRelatedField(read_only=True)
+
+    class Meta:
+        model = PeopleBankService
+        fields = ('user_id', 'service', 'approved')
+
+
+class UniversityApproveSerializer(serializers.ModelSerializer):
+    university = UniversitySoloSerializer()
+
+    class Meta:
+        model = UniversityApprove
+        fields = ('user_id', 'university', 'approved')
