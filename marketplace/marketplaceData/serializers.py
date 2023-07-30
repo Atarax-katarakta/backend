@@ -61,7 +61,7 @@ class UniversitySpecialitySerializer(serializers.ModelSerializer):
 
 
 class PeopleBankServiceSerializer(serializers.ModelSerializer):
-    service = serializers.HyperlinkedRelatedField(read_only=True)
+    service = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = PeopleBankService
